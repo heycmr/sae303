@@ -1,0 +1,5 @@
+#map { height: 180px; }
+#map {
+    height: 600px; /* Tu dois OBLIGATOIREMENT donner une hauteur */
+    width: 100%;
+}
