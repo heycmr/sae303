@@ -3,3 +3,13 @@
     height: 600px; /* Tu dois OBLIGATOIREMENT donner une hauteur */
     width: 100%;
 }
+
+.leaflet-popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.leaflet-popup-content h3 {
+    margin: 0 0 10px 0;
+    color: #e74c3c;
+}   
