@@ -1,5 +1,5 @@
 let map;
-let allBakeries = [];
+let toutesLesBoulangeries = [];
 let markersLayer;
 let markerRefs = new Map();
 
@@ -30,26 +30,57 @@ async function initSite() {
     try {
 
         const response = await fetch("geo-boulangeries-ble-idf.json");
-        allBakeries = await response.json();
+        toutesLesBoulangeries = await response.json();
         
-        console.log(`${allBakeries.length} boulangeries chargées`);
+        console.log(`${toutesLesBoulangeries.length} boulangeries chargées`);
 
-        animateNumber("stat-count", 0, allBakeries.length, 2000, "");    
+        animateNumber("stat-count", 0, toutesLesBoulangeries.length, 2000, "");    
         animateNumber("stat-dept", 0, 8, 1500, "");                 
         animateNumber("stat-artisan", 0, 100, 2000, "%");           
 
-        allBakeries.forEach((bakery, index) => {
-            if (bakery.latitude && bakery.longitude) {
+        toutesLesBoulangeries.forEach((boulangerie, index) => {
+            if (boulangerie.latitude && boulangerie.longitude) {
                 const marker = L.marker(
-                    [bakery.latitude, bakery.longitude],
+                    [boulangerie.latitude, boulangerie.longitude],
                     { icon: croissantIcon }
                 );
 
+                // Déterminer la catégorie selon le score
+                const score = boulangerie.result_score || 0;
+                let categorie = '';
+                let classeCategorie = '';
+
+                if (score > 0.9) {
+                    categorie = '⭐ Excellente';
+                    classeCategorie = 'excellente';
+                } else if (score >= 0.8) {
+                    categorie = '✨ Très bonne';
+                    classeCategorie = 'tres-bonne';
+                } else if (score >= 0.7) {
+                    categorie = '👍 Bonne';
+                    classeCategorie = 'bonne';
+                } else {
+                    categorie = '➖ Moyenne';
+                    classeCategorie = 'moyenne';
+                }
+
                 marker.bindPopup(`
-                    <div class="popup-header">${bakery.nom || 'Sans nom'}</div>
+                    <div class="popup-header">${boulangerie.nom || 'Sans nom'}</div>
                     <div class="popup-body">
-                        <p><strong>📍 Adresse:</strong><br>${bakery.adresse || 'Non renseignée'}</p>
-                        <p><strong>🏙️ Ville:</strong> ${bakery.ville || 'Non renseignée'}</p>
+                        <div class="popup-info">
+                            <span class="popup-label">Adresse</span>
+                            <span class="popup-value">${boulangerie.adresse || 'Non renseignée'}</span>
+                        </div>
+                        <div class="popup-info">
+                            <span class="popup-label">Ville</span>
+                            <span class="popup-value">${boulangerie.ville || 'Non renseignée'}</span>
+                        </div>
+                        <div class="popup-score">
+                            <span class="popup-label">Qualité</span>
+                            <div class="score-badge ${classeCategorie}">
+                                ${categorie} <span class="score-number">(${score.toFixed(2)})</span>
+                            </div>
+                        </div>
                     </div>
                 `);
 
@@ -62,6 +93,7 @@ async function initSite() {
 
         initSearch();
         setupMobileMenu(); 
+        afficherJaugeQualite();
 
     } catch (e) {
         console.error("Erreur de chargement :", e);
@@ -121,11 +153,11 @@ function initSearch() {
             return;
         }
 
-        const results = allBakeries
-            .map((bakery, index) => ({ ...bakery, originalIndex: index }))
-            .filter(bakery => 
-                bakery.ville && 
-                bakery.ville.toLowerCase().includes(query)
+        const results = toutesLesBoulangeries
+            .map((boulangerie, index) => ({ ...boulangerie, originalIndex: index }))
+            .filter(boulangerie => 
+                boulangerie.ville && 
+                boulangerie.ville.toLowerCase().includes(query)
             );
 
         displaySearchResults(results, searchResults);
@@ -145,10 +177,10 @@ function displaySearchResults(results, container) {
         return;
     }
 
-    container.innerHTML = results.map(bakery => `
-        <div class="search-result-item" data-index="${bakery.originalIndex}">
-            <div class="result-name">${bakery.nom || 'Sans nom'}</div>
-            <div class="result-address">${bakery.adresse || ''} - ${bakery.ville || ''}</div>
+    container.innerHTML = results.map(boulangerie => `
+        <div class="search-result-item" data-index="${boulangerie.originalIndex}">
+            <div class="result-name">${boulangerie.nom || 'Sans nom'}</div>
+            <div class="result-address">${boulangerie.adresse || ''} - ${boulangerie.ville || ''}</div>
         </div>
     `).join('');
 
@@ -164,11 +196,11 @@ function displaySearchResults(results, container) {
 }
 
 function focusOnBakery(index) {
-    const bakery = allBakeries[index];
+    const boulangerie = toutesLesBoulangeries[index];
     const marker = markerRefs.get(index);
 
-    if (bakery && marker) {
-        map.setView([bakery.latitude, bakery.longitude], 17, {
+    if (boulangerie && marker) {
+        map.setView([boulangerie.latitude, boulangerie.longitude], 17, {
             animate: true,
             duration: 0.5
         });
@@ -191,5 +223,167 @@ window.addEventListener('scroll', () => {
         }
     }
 });
+
+// jauge pour la qualité
+async function afficherJaugeQualite() {
+    const ctx = document.getElementById('qualityChart');
+    
+    if (!ctx) {
+        console.error("Élément #qualityChart introuvable");
+        return;
+    }
+
+    try {
+        const boulangeries = toutesLesBoulangeries.length > 0 
+            ? toutesLesBoulangeries 
+            : await fetch("geo-boulangeries-ble-idf.json").then(r => r.json());
+        
+        let excellentes = 0;    
+        let tresBonnes = 0;     
+        let bonnes = 0;         
+        let moyennes = 0;       
+        
+        boulangeries.forEach(boulangerie => {
+            const score = boulangerie.result_score;
+            
+            if (score !== null && score !== undefined) {
+                if (score > 0.9) {
+                    excellentes++;
+                } else if (score >= 0.8) {
+                    tresBonnes++;
+                } else if (score >= 0.7) {
+                    bonnes++;
+                } else {
+                    moyennes++;
+                }
+            }
+        });
+        
+        console.log('📊 Répartition qualité:', { excellentes, tresBonnes, bonnes, moyennes });
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    '⭐ Excellentes', 
+                    '✨ Très bonnes', 
+                    '👍 Bonnes', 
+                    '➖ Moyennes'
+                ],
+                datasets: [{
+                    label: 'Nombre de boulangeries',
+                    data: [excellentes, tresBonnes, bonnes, moyennes],
+                    backgroundColor: [
+                        '#2ecc71',   
+                        '#3498db',   
+                        '#f39c12',  
+                        '#e74c3c'    
+                    ],
+                    borderColor: [
+                        '#27ae60',   
+                        '#2980b9',   
+                        '#e67e22',   
+                        '#c0392b'   
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: false 
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#1a1a1a', 
+                        titleColor: '#d4a574',      
+                        bodyColor: '#faf8f5',       
+                        titleFont: {
+                            family: "'Lato', sans-serif",
+                            size: 14
+                        },
+                        bodyFont: {
+                            family: "'Lato', sans-serif",
+                            size: 13
+                        },
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                const total = excellentes + tresBonnes + bonnes + moyennes;
+                                const pourcentage = ((context.parsed.y / total) * 100).toFixed(1);
+                                return `${context.parsed.y} boulangeries (${pourcentage}%)`;
+                            },
+                            title: function(context) {
+                                const labels = {
+                                    0: '⭐ Excellentes (score > 0.9)',
+                                    1: '✨ Très bonnes (0.8 - 0.9)',
+                                    2: '👍 Bonnes (0.7 - 0.8)',
+                                    3: '➖ Moyennes (< 0.7)'
+                                };
+                                return labels[context[0].dataIndex];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Nombre de boulangeries',
+                            font: {
+                                family: "'Lato', sans-serif",
+                                size: 13,
+                                weight: '700'
+                            },
+                            color: '#b8915f' 
+                        },
+                        ticks: {
+                            stepSize: 5,
+                            font: {
+                                family: "'Lato', sans-serif"
+                            },
+                            color: '#333' 
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)' 
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Catégorie de qualité (score)',
+                            font: {
+                                family: "'Lato', sans-serif",
+                                size: 13,
+                                weight: '700'
+                            },
+                            color: '#b8915f' 
+                        },
+                        ticks: {
+                            font: {
+                                family: "'Lato', sans-serif",
+                                size: 11
+                            },
+                            color: '#333' 
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+        
+    } catch (erreur) {
+        console.error("Erreur chargement graphique:", erreur);
+    }
+}
 
 initSite();

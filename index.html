@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boulangeries d'Île-de-France | Artisans du Pain</title>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
@@ -29,6 +30,8 @@
         <ul class="nav-links">
             <li><a href="#map-section">Carte</a></li>
             <li><a href="#features">Découvrir</a></li>
+            <li><a href="#quality-section">Qualité</a></li>
+            <li><a href="#mission">Mission</a></li>
             <li><a href="#about">À propos</a></li>
         </ul>
     </nav>
@@ -101,8 +104,20 @@
         </div>
     </section>
 
-    <section class="mission">
-        <div class="about-content">
+    <section class="quality-section" id="quality-section">
+    <h2>Analyse de la Qualité</h2>
+    
+    <p>
+        Découvrez la répartition des notes attribuées aux boulangeries d'Île-de-France. 
+        Ce graphique illustre l'excellence de nos artisans à travers leurs scores de satisfaction.
+    </p>
+
+    <div class="chart-container">
+        <canvas id="qualityChart"></canvas>
+    </div>
+</section>
+
+    <section class="mission" id="mission">
             <h2>Notre Mission</h2>
             <p>Promouvoir le savoir-faire artisanal des boulangers d'Île-de-France et faciliter la découverte de ces commerces de proximité qui font vivre nos quartiers.</p>
             <p>Chaque boulangerie référencée participe à la préservation d'un patrimoine culinaire unique et d'une tradition qui se transmet de génération en génération.</p>
@@ -110,7 +125,6 @@
     </section>
 
     <section class="about" id="about">
-        <div class="about-content">
             <h2>À propos du projet</h2>
             <p>
                 Ce projet a été réalisé par <strong>cinq étudiants</strong>. Notre objectif était de transformer des données géographiques brutes en une expérience interactive, visuelle et accessible à tous les gourmands.

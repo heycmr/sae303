@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Lato:wght@400;700&display=swap'); 
 
 html { 
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; 
 } 
 
 * { 
@@ -18,7 +19,6 @@ html {
     --cream: #faf8f5; 
     --text: #333; 
     --text-light: #666; 
-    /* Variables de polices */ 
     --font-titles: 'Playfair Display', serif; 
     --font-body: 'Lato', sans-serif; 
 } 
@@ -30,7 +30,6 @@ body {
     overflow-x: hidden; 
 } 
 
-/* Header avec effet glassmorphism */
 header { 
     position: fixed; 
     top: 0; 
@@ -104,7 +103,28 @@ nav {
     width: 100%; 
 } 
 
-/* Section hero */
+
+.menu-toggle {
+    display: none; 
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 4000; 
+    transition: transform 0.2s ease;
+}
+
+.menu-toggle:active { transform: scale(0.9); } 
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: var(--dark);
+    border-radius: 3px;
+    transition: 0.3s all ease;
+}
+
 .hero { 
     margin-top: 80px; 
     min-height: 40vh;  
@@ -198,7 +218,6 @@ nav {
     background: var(--primary-dark); 
 } 
 
-/* Section stats */ 
 .stats { 
     background: #ffffff; 
     padding: 1.5rem 2rem; 
@@ -242,7 +261,6 @@ nav {
     font-weight: 700; 
 } 
 
-/* Map Section */ 
 .map-section { 
     max-width: 1400px; 
     margin: 6rem auto; 
@@ -270,7 +288,6 @@ nav {
     margin: 0 auto; 
 } 
 
-/* BARRE DE RECHERCHE */
 .search-container {
     max-width: 600px;
     margin: 0 auto 2rem;
@@ -327,7 +344,7 @@ nav {
 .result-name { font-weight: 600; color: #1a1a1a; margin-bottom: 0.25rem; }
 .result-address { font-size: 0.9rem; color: #666; }
 
-/* Map Container */
+
 .map-container { 
     position: relative; 
     border-radius: 20px; 
@@ -340,13 +357,118 @@ nav {
 
 #map { height: 100%; width: 100%; }
 
-/* Modifier le popup Leaflet  */ 
-.leaflet-popup-content-wrapper { border-radius: 12px; padding: 0; overflow: hidden; }
-.leaflet-popup-content { margin: 0; min-width: 200px; }
-.popup-header { font-family: var(--font-titles); background: var(--primary); color: white; padding: 1rem; font-weight: 600; font-size: 1.1rem; }
-.popup-body { font-family: var(--font-body); padding: 1rem; color: var(--text); line-height: 1.6; }
+.leaflet-popup-content-wrapper { 
+    border-radius: 12px; 
+    padding: 0; 
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
 
-/* Features Section */ 
+.leaflet-popup-content { 
+    margin: 0; 
+    min-width: 250px;
+    font-family: var(--font-body);
+}
+
+.popup-header { 
+    font-family: var(--font-titles); 
+    background: var(--primary); 
+    color: white; 
+    padding: 1.2rem; 
+    font-weight: 700; 
+    font-size: 1.15rem;
+    text-align: center;
+}
+
+.popup-body { 
+    font-family: var(--font-body); 
+    padding: 1.2rem; 
+    color: var(--text); 
+    line-height: 1.6;
+    background: white;
+}
+
+.popup-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.popup-info:last-child {
+    border-bottom: none;
+}
+
+.popup-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.popup-value {
+    font-size: 0.95rem;
+    color: var(--dark);
+    font-weight: 400;
+}
+
+.popup-score {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.score-number {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-left: 0.3rem;
+}
+
+/* Couleurs par catégorie */
+.score-badge.excellente {
+    background: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+    border: 2px solid #2ecc71;
+}
+
+.score-badge.tres-bonne {
+    background: rgba(52, 152, 219, 0.15);
+    color: #2980b9;
+    border: 2px solid #3498db;
+}
+
+.score-badge.bonne {
+    background: rgba(243, 156, 18, 0.15);
+    color: #e67e22;
+    border: 2px solid #f39c12;
+}
+
+.score-badge.moyenne {
+    background: rgba(231, 76, 60, 0.15);
+    color: #c0392b;
+    border: 2px solid #e74c3c;
+}
+
+
+.leaflet-popup-tip {
+    background: white;
+}
+
 .features { 
     max-width: 1400px; 
     margin: 8rem auto; 
@@ -369,20 +491,94 @@ nav {
 .feature-card p { font-family: var(--font-body); color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; }
 .feature-card:hover { transform: translateX(10px); }
 
-/* Mission et About Sections */ 
-.about, .mission { background: var(--cream); color: var(--text); padding: 3rem 2rem; text-align: center;  }
-.about { padding-top: 6rem;  }
-.about h2, .mission h2 { font-family: var(--font-titles); font-size: 2.5rem; color: var(--dark); margin-bottom: 1rem; position: relative; display: inline-block; padding-bottom: 15px; text-align: center; }
-.about h2::after, .mission h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 500px;  height: 2px; background: var(--primary); }
-.about p, .mission p { font-family: var(--font-body); font-size: 1.2rem; line-height: 1.8; color: var(--text-light); max-width: 900px; margin: 2.5rem auto 0; text-align: left;  }
 
-/* Signature */
-.team-signature { margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid rgba(184, 134, 11, 0.2);  display: block !important; width: 100% !important; text-align: center !important; }
-.team-signature span { display: block; font-size: 0.85rem; color: var(--primary); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; text-align: center !important; }
-.team-signature p { text-align: center !important;  margin: 0 auto !important; display: inline-block; width: 100%; color: var(--text-light); font-size: 0.95rem; opacity: 0.8; letter-spacing: 2px;  }
+.about, .mission, .quality-section { 
+    background: var(--cream); 
+    color: var(--text); 
+    padding: 3rem 2rem; 
+    text-align: center;  
+}
 
-/* Footer et  Logos */ 
-/* STYLE DU FOOTER */
+.about, .mission { 
+    padding-top: 6rem;  
+}
+
+
+.about h2, .mission h2, .quality-section h2 { 
+    font-family: var(--font-titles); 
+    font-size: 2.5rem; 
+    color: var(--dark); 
+    margin-bottom: 1rem; 
+    position: relative; 
+    display: inline-block; 
+    padding-bottom: 15px; 
+    text-align: center; 
+}
+
+
+.about h2::after, .mission h2::after, .quality-section h2::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 500px;  
+    height: 2px; 
+    background: var(--primary); 
+}
+
+
+.about p, .mission p, .quality-section p { 
+    font-family: var(--font-body); 
+    font-size: 1.2rem; 
+    line-height: 1.8; 
+    color: var(--text-light); 
+    max-width: 900px; 
+    margin: 2.5rem auto 0; 
+    text-align: left;  
+}
+
+
+.chart-container {     
+    padding: 2rem; 
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(212, 165, 116, 0.15); 
+    max-width: 1000px; 
+    height: 500px; 
+    margin: 3rem auto 0;    
+    position: relative; 
+}
+
+
+.team-signature { 
+    margin-top: 5rem; 
+    padding-top: 1.5rem; 
+    border-top: 1px solid rgba(184, 134, 11, 0.2); 
+    display:block !important ; 
+    width :100% !important ; 
+    text-align:center !important ; 
+}
+.team-signature span { 
+    display: block; 
+    font-size: 0.85rem; 
+    color: var(--primary); 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    margin-bottom: 1rem; 
+    text-align: center !important; 
+}
+.team-signature p { 
+    text-align: center !important;  
+    margin: 0 auto !important; 
+    display: inline-block; 
+    width: 100%; 
+    color: var(--text-light); 
+    font-size: 0.95rem; 
+    opacity: 0.8; 
+    letter-spacing: 2px;  
+}
+
+
 footer { 
     font-family: var(--font-body); 
     background: var(--dark); 
@@ -409,7 +605,6 @@ footer {
 .school-logo {
     height: 45px;
     width: auto;
-
     filter: none !important; 
     opacity: 1 !important; 
     transition: all 0.3s ease;
@@ -420,7 +615,6 @@ footer {
     filter: brightness(1.1);
 }
 
-/* Spinner et Animations */
 .spinner {
     border: 3px solid rgba(212, 165, 116, 0.2);
     border-top: 3px solid var(--primary);
@@ -431,30 +625,6 @@ footer {
 }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* GESTION DU MENU MOBILE  */
-
-.menu-toggle {
-    display: none; 
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    z-index: 4000; 
-    transition: transform 0.2s ease;
-}
-
-.menu-toggle:active { transform: scale(0.9); } 
-
-.menu-toggle .bar {
-    width: 100%;
-    height: 3px;
-    background-color: var(--dark);
-    border-radius: 3px;
-    transition: 0.3s all ease;
-}
-
-/* RESPONSIVE */
 
 @media (max-width: 1024px) {
     nav { padding: 1rem; }
@@ -462,6 +632,7 @@ footer {
 }
 
 @media (max-width: 768px) {
+    
     .menu-toggle {
         display: flex !important; 
     }
@@ -507,10 +678,12 @@ footer {
         letter-spacing: 2px;
     }
 
+    
     .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
     .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); background-color: var(--primary) !important; }
     .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background-color: var(--primary) !important; }
 
+   
     .hero { min-height: 50vh; padding-top: 60px; }
     .hero h1 { font-size: 2.2rem; padding: 0 10px; }
     .hero p { font-size: 1.1rem; padding: 0 20px; }
@@ -523,18 +696,29 @@ footer {
     }
     .stat-number { font-size: 1.8rem; }
 
+   
     .map-section { margin: 3rem auto; padding: 0 1rem; }
     .map-container { height: 450px; border-radius: 15px; }
 
     .features { gap: 2rem; margin: 4rem auto; }
-    
-    .about h2, .mission h2 { font-size: 1.8rem; }
-    .about h2::after, .mission h2::after { width: 80%; }
-}
 
-@media (max-width: 380px) {
-    .hero h1 { font-size: 1.8rem; }
-    .stats { grid-template-columns: 1fr; }
-    .map-container { height: 350px; }
-    .school-logo { height: 35px; }
+    
+    .quality-section {
+        margin: 3rem auto;
+        padding: 2rem 1rem; 
+    }
+    
+    .chart-container {
+        height: 300px; 
+        padding: 0.8rem; 
+        margin-top: 2rem;
+    }
+    
+    .quality-section h2, .about h2, .mission h2 {
+        font-size: 2rem; 
+    }
+    
+    .about h2::after, .mission h2::after, .quality-section h2::after {
+        width: 200px; 
+    }
 }
