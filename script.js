@@ -4,12 +4,14 @@ let markersLayer;
 let markerRefs = new Map();
 
 async function initSite() {
+    
     map = L.map('map').setView([48.8566, 2.3522], 10);
     
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
+    
     const CroissantIcon = L.Icon.extend({
         options: {
             iconSize: [30, 30],
@@ -22,14 +24,19 @@ async function initSite() {
         iconUrl: 'img/PingIndividuel.png'
     });
 
+    
     markersLayer = L.markerClusterGroup();
 
     try {
+
         const response = await fetch("geo-boulangeries-ble-idf.json");
         allBakeries = await response.json();
         
         console.log(`${allBakeries.length} boulangeries chargées`);
-        document.getElementById("stat-count").textContent = allBakeries.length;
+
+        animateNumber("stat-count", 0, allBakeries.length, 2000, "");    
+        animateNumber("stat-dept", 0, 8, 1500, "");                 
+        animateNumber("stat-artisan", 0, 100, 2000, "%");           
 
         allBakeries.forEach((bakery, index) => {
             if (bakery.latitude && bakery.longitude) {
@@ -52,16 +59,59 @@ async function initSite() {
         });
 
         map.addLayer(markersLayer);
+
         initSearch();
+        setupMobileMenu(); 
 
     } catch (e) {
         console.error("Erreur de chargement :", e);
     }
 }
 
+function animateNumber(id, start, end, duration, suffix = "") {
+    const obj = document.getElementById(id);
+    if (!obj) return;
+    
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        const currentVal = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = currentVal + suffix;
+        
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+function setupMobileMenu() {
+    const btn = document.getElementById('mobile-menu');
+    const nav = document.querySelector('.nav-links');
+
+    if (btn && nav) {
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('is-active');
+            nav.classList.toggle('active');
+            console.log("État du menu :", nav.classList.contains('active') ? "Ouvert" : "Fermé");
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                btn.classList.remove('is-active');
+                nav.classList.remove('active');
+            });
+        });
+    }
+}
+
 function initSearch() {
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
+
+    if(!searchInput || !searchResults) return;
 
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.trim().toLowerCase();
@@ -103,6 +153,7 @@ function displaySearchResults(results, container) {
     `).join('');
 
     container.classList.add('active');
+
     container.querySelectorAll('.search-result-item').forEach(item => {
         item.addEventListener('click', () => {
             const index = parseInt(item.dataset.index);
@@ -121,6 +172,7 @@ function focusOnBakery(index) {
             animate: true,
             duration: 0.5
         });
+
         setTimeout(() => {
             markersLayer.zoomToShowLayer(marker, () => {
                 marker.openPopup();
@@ -128,13 +180,16 @@ function focusOnBakery(index) {
         }, 600);
     }
 }
-initSite();
 
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
 });
+
+initSite();
