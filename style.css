@@ -21,7 +21,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header avec effet glassmorphism */
 header {
     position: fixed;
     top: 0;
@@ -92,7 +91,6 @@ nav {
     width: 100%;
 }
 
-/* Hero Section */
 .hero {
     margin-top: 80px;
     height: 70vh;
@@ -173,7 +171,6 @@ nav {
     background: var(--primary-dark);
 }
 
-/* Stats Section */
 .stats {
     background: white;
     padding: 3rem 2rem;
@@ -208,7 +205,6 @@ nav {
     letter-spacing: 1px;
 }
 
-/* Map Section */
 .map-section {
     max-width: 1400px;
     margin: 6rem auto;
@@ -247,7 +243,6 @@ nav {
     width: 100%;
 }
 
-/* Custom Leaflet Popup */
 .leaflet-popup-content-wrapper {
     border-radius: 12px;
     padding: 0;
@@ -273,7 +268,6 @@ nav {
     line-height: 1.6;
 }
 
-/* About Section */
 .about {
     background: var(--dark);
     color: white;
@@ -299,7 +293,6 @@ nav {
     margin-bottom: 1rem;
 }
 
-/* Features Grid */
 .features {
     max-width: 1400px;
     margin: 6rem auto;
@@ -346,7 +339,6 @@ nav {
     line-height: 1.7;
 }
 
-/* Footer */
 footer {
     background: var(--dark);
     color: rgba(255, 255, 255, 0.7);
@@ -358,7 +350,6 @@ footer p {
     margin-bottom: 0.5rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -386,7 +377,6 @@ footer p {
     }
 }
 
-/* Loading animation */
 .loading {
     text-align: center;
     padding: 2rem;
