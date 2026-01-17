@@ -8,31 +8,32 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
-    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <nav>
-            <div class="logo">Pain<span>IDF</span></div>
-            <ul class="nav-links">
-                <li><a href="#map-section">Carte</a></li>
-                <li><a href="#features">Découvrir</a></li>
-                <li><a href="#about">À propos</a></li>
-            </ul>
-        </nav>
-    </header>
+<header id="header">
+    <nav>
+        <div class="logo">Les boulangeries <span>d'Ile de France</span></div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
 
-    <!-- Hero Section -->
+        <ul class="nav-links">
+            <li><a href="#map-section">Carte</a></li>
+            <li><a href="#features">Découvrir</a></li>
+            <li><a href="#about">À propos</a></li>
+        </ul>
+    </nav>
+</header>
+
     <section class="hero">
         <div class="hero-content">
             <h1>Découvrez les <span class="highlight">Artisans Boulangers</span> d'Île-de-France</h1>
@@ -41,18 +42,17 @@
         </div>
     </section>
 
-    <!-- Stats -->
     <div class="stats">
         <div class="stat-item">
             <span class="stat-number" id="stat-count">0</span>
             <span class="stat-label">Boulangeries</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">8</span>
+            <span class="stat-number" id="stat-dept">0</span>
             <span class="stat-label">Départements</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">100%</span>
+            <span class="stat-number" id="stat-artisan">0%</span>
             <span class="stat-label">Artisanal</span>
         </div>
         <div class="stat-item">
@@ -61,18 +61,28 @@
         </div>
     </div>
 
-    <!-- Map Section -->
     <section class="map-section" id="map-section">
         <div class="section-header">
             <h2>Carte Interactive</h2>
             <p>Explorez toutes les boulangeries artisanales référencées en Île-de-France</p>
         </div>
+        
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="search-input" 
+                class="search-input" 
+                placeholder="Rechercher une ville (ex : Paris...)"
+                autocomplete="off"
+            >
+            <div id="search-results" class="search-results"></div>
+        </div>
+
         <div class="map-container">
             <div id="map"></div>
         </div>
     </section>
 
-    <!-- Features -->
     <section class="features" id="features">
         <div class="feature-card">
             <div class="feature-icon">🗺️</div>
@@ -91,8 +101,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
+    <section class="mission">
         <div class="about-content">
             <h2>Notre Mission</h2>
             <p>Promouvoir le savoir-faire artisanal des boulangers d'Île-de-France et faciliter la découverte de ces commerces de proximité qui font vivre nos quartiers.</p>
@@ -100,10 +109,36 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>À propos du projet</h2>
+            <p>
+                Ce projet a été réalisé par <strong>cinq étudiants</strong>. Notre objectif était de transformer des données géographiques brutes en une expérience interactive, visuelle et accessible à tous les gourmands.
+            </p>
+            <p>
+                À travers cette application de data visualisation, vous pourrez explorer une carte dynamique recensant les boulangeries des huit départements d'Île-de-France et découvrir les artisans proches de chez vous. Vous trouverez également des statistiques clés sur la répartition de ces commerces de proximité, permettant de mieux comprendre le maillage artisanal de notre région.
+            </p>
+            
+            <div class="team-signature">
+                <span>Équipe du projet</span>
+                <p>Bouchra CHELALI • Ilan BAZONNET • Aliya CAMARA • Adam ALALOUCHE • Oscar ASSOGBA</p>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2026 PainIDF - Boulangeries d'Île-de-France</p>
+        <p>© 2026 Les boulangeries d'Ile de France</p>
         <p>Données cartographiques © OpenStreetMap</p>
+        
+        <div class="footer-logos">
+            <img src="img/logocyu1.svg" alt="Logo CYU 1" class="school-logo">
+            <img src="img/logocyu2.svg" alt="Logo CYU 2" class="school-logo">
+        </div>
     </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 </body>
 </html>
