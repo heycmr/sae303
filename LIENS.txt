@@ -1,0 +1,8 @@
+Equipe : Aliya CAMARA, Ilan BAZONNET, Bouchra CHELALI, Oscar ASSOGBA
+GROUPE : BUT MMI 2 - TP3
+
+Lien vers le site en ligne :
+https://saeboulangeries.alwaysdata.net/sae303/
+
+Lien vers le dépôt GitHub :
+https://github.com/heycmr/sae303
