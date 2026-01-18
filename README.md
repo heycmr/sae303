@@ -1,5 +1,10 @@
 # Visualisation des Boulangeries proposant la "Baguette des Franciliens"
 
+🔗 **Site en ligne :** [Accéder au site web](https://saeboulangeries.alwaysdata.net/sae303/)  
+📂 **Dépôt GitHub :** [Voir le code source](https://github.com/heycmr/sae303)
+
+---
+
 Ce projet de visualisation de données a été réalisé par cinq étudiants en deuxième année de BUT MMI (Métiers du Multimédia et de l'Internet) à CY Cergy Paris Université, dans le cadre d'une Situation d'Apprentissage et d'Évaluation (SAE).
 
 L'objectif de cette application est de valoriser le savoir-faire artisanal local en transformant un jeu de données géographiques brutes en une interface interactive. Elle permet de localiser les boulangeries proposant la "Baguette des Franciliens" (farine issue de blés locaux) et d'analyser leur répartition sur le territoire.
@@ -20,6 +25,7 @@ L'application propose plusieurs outils pour explorer les données :
 * **Bibliothèques tierces :**
     * **Leaflet & MarkerCluster :** Gestion du fond de carte et agrégation des points.
     * **Chart.js :** Génération des graphiques statistiques interactifs.
+* **Source des données :** Les informations sur les boulangeries proviennent du jeu de données ouvert [Boulangeries qui proposent la baguette des Franciliens](https://www.data.gouv.fr/datasets/boulangeries-qui-proposent-la-baguette-des-franciliens) (data.gouv.fr).
 
 ## Équipe de réalisation
 
