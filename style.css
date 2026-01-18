@@ -156,7 +156,7 @@ nav {
     color: white; 
     z-index: 1; 
     animation: fadeInUp 1s ease; 
-    padding: 70px 20px 100px 20px; 
+    padding: 40px 20px 100px 20px; 
 } 
 
 @keyframes fadeInUp { 
@@ -357,6 +357,7 @@ nav {
 
 #map { height: 100%; width: 100%; }
 
+
 .leaflet-popup-content-wrapper { 
     border-radius: 12px; 
     padding: 0; 
@@ -462,7 +463,6 @@ nav {
     color: #c0392b;
     border: 2px solid #e74c3c;
 }
-
 
 .leaflet-popup-tip {
     background: white;

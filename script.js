@@ -200,25 +200,16 @@ function focusOnBakery(index) {
     const marker = markerRefs.get(index);
 
     if (boulangerie && marker) {
-        // Scroll vers la carte avec un offset pour mieux la voir
-        const mapSection = document.getElementById('map-section');
-        const yOffset = 100; // Décalage pour descendre un peu plus
-        const y = mapSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        
-        window.scrollTo({ top: y, behavior: 'smooth' });
-        
-        // Attendre que le scroll soit terminé avant de zoomer
+        map.setView([boulangerie.latitude, boulangerie.longitude], 17, {
+            animate: true,
+            duration: 0.5
+        });
+
         setTimeout(() => {
-            map.setView([boulangerie.latitude, boulangerie.longitude], 17, {
-                animate: true,
-                duration: 0.5
+            markersLayer.zoomToShowLayer(marker, () => {
+                marker.openPopup();
             });
-            setTimeout(() => {
-                markersLayer.zoomToShowLayer(marker, () => {
-                    marker.openPopup();
-                });
-            }, 600);
-        }, 800);
+        }, 600);
     }
 }
 
@@ -233,7 +224,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// jauge pour la qualité
+// Graphique de qualité
 async function afficherJaugeQualite() {
     const ctx = document.getElementById('qualityChart');
     
