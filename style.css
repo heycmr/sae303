@@ -62,7 +62,14 @@ nav {
     font-weight: 700; 
     color: var(--dark); 
     letter-spacing: -0.03125rem; 
-    z-index: 4001; 
+    z-index: 4001;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+} 
+
+.logo:hover {
+    opacity: 0.8;
 } 
 
 .logo span { 
@@ -563,7 +570,7 @@ nav {
     text-align: center; 
 }
 
-.about h2::after, .mission h2::after, .quality-section h2::after { 
+.about h2::after, .mission h2::after, .quality-section h2::after, .legal-container h1::after { 
     content: ''; 
     position: absolute; 
     bottom: 0; 
@@ -670,6 +677,89 @@ footer {
     margin: 1rem auto;
 }
 
+/* --- GARDE TOUT TON CODE PRÉCÉDENT ET AJOUTE/MODIFIE CECI --- */
+
+/* LOGOS DU FOOTER (CORRECTIONS COULEURS) */
+.school-logo {
+    height: 45px;
+    width: auto;
+    filter: none !important; /* On retire les filtres qui rendaient gris/blanc */
+    opacity: 1 !important;   /* Opacité totale pour voir les vraies couleurs */
+    transition: all 0.3s ease;
+}
+
+.school-logo:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.1); /* Brille légèrement au survol */
+}
+
+/* STYLE PAGE MENTIONS LÉGALES */
+.legal-page {
+    background: var(--cream);
+}
+
+.legal-container {
+    max-width: 900px;
+    margin: 120px auto 60px;
+    padding: 0 2rem;
+    line-height: 1.6;
+}
+
+.legal-container h1 {
+    font-family: var(--font-titles);
+    font-size: 3rem;
+    color: var(--dark);
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.9375rem;
+    width: 100%;
+}
+
+.legal-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.legal-section h2 {
+    font-family: var(--font-titles);
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.legal-section p {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+/* RESPONSIVE MENTIONS */
+@media (max-width: 768px) {
+    .legal-container h1 { 
+        font-size: 2rem;
+        padding-bottom: 0.625rem;
+    }
+    .legal-container { 
+        margin-top: 100px;
+        padding: 0 1rem;
+    }
+    .legal-section {
+        padding: 1.5rem;
+        border-radius: 10px;
+    }
+    .legal-section h2 {
+        font-size: 1.3rem;
+    }
+    .legal-section p {
+        font-size: 0.95rem;
+    }
+    .legal-container h1::after {
+        width: 12.5rem;
+    }
+}
 @keyframes spin { 
     0% { transform: rotate(0deg); } 
     100% { transform: rotate(360deg); } 
@@ -725,6 +815,20 @@ footer {
         color: var(--primary) !important;
         letter-spacing: 0.125rem;
     }
+
+    /* Utilise ce sélecteur précis pour forcer l'affichage */
+header nav ul.nav-links.active {
+    right: 0 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Et assure-toi que les liens redeviennent visibles */
+header nav ul.nav-links.active a {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
 
     .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
     .menu-toggle.is-active .bar:nth-child(1) { 
