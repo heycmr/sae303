@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="legal-page">
+
+<div id="map" style="display:none;"></div>
+<div id="stat-count" style="display:none;"></div>
+<div id="stat-dept" style="display:none;"></div>
+<div id="stat-artisan" style="display:none;"></div>
+<canvas id="qualityChart" style="display:none;"></canvas>
+
+<header id="header">
+    <nav>
+        <a href="index.html" class="logo">Les boulangeries <span>d'Ile de France</span></a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="index.html#map-section">Carte</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="legal-container">
+        <h1>Mentions Légales</h1>
+        
+        <section class="legal-section">
+            <h2>1. Édition du site</h2>
+            <p>Ce site est un projet pédagogique réalisé par des étudiants du BUT MMI de l'IUT de Cergy-Pontoise (CY Cergy Paris Université).</p>
+            <p><strong>Équipe du projet :</strong> Bouchra CHELALI, Ilan BAZONNET, Aliya CAMARA, Adam ALALOUCHE, Oscar ASSOGBA.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>2. Hébergement</h2>
+            <p>Ce site est hébergé par Alwaysdata.</p>
+        </section>
+
+<section class="legal-section">
+    <h2>3. Propriété intellectuelle et Sources</h2>
+    <p>Les logos <strong>CY Cergy Paris Université</strong> et <strong>IUT</strong> sont la propriété exclusive de leurs institutions respectives.</p>
+    
+    <p>Les informations sur les boulangeries proviennent du jeu de données ouvert : 
+        <a href="https://www.data.gouv.fr/datasets/boulangeries-qui-proposent-la-baguette-des-franciliens" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           style="color: #d4a574; text-decoration: underline;">
+           Boulangeries qui proposent la baguette des Franciliens
+        </a> (data.gouv.fr).
+    </p>
+
+    <p>Bibliothèques tierces utilisées : <strong>Leaflet</strong>, <strong>MarkerCluster</strong> et <strong>Chart.js</strong>.</p>
+    <p>Données cartographiques fournies par <strong>© OpenStreetMap</strong>.</p>
+</section>
+
+        <section class="legal-section">
+            <h2>4. Données personnelles</h2>
+            <p>Ce site ne collecte aucune donnée personnelle nominative sur ses utilisateurs.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Les boulangeries d'Ile de France - BUT 2 MMI 2024-2027</p>
+        <p>Données cartographiques © OpenStreetMap contributors - Interface propulsée par Leaflet, MarkerCluster & Chart.js</p>
+        <p><a href="mentions.html" style="color: inherit; text-decoration: underline;">Mentions légales</a></p>
+        
+        <div class="footer-logos">
+            <img src="img/logocyu1.png" alt="Logo CYU 1" class="school-logo">
+            <img src="img/logocyu2.png" alt="Logo CYU 2" class="school-logo">
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
