@@ -1,25 +1,31 @@
-# Visualisation des Boulangeries d'Île-de-France
+# Visualisation des Boulangeries proposant la "Baguette des Franciliens"
 
-Ce projet de data visualisation a été conçu par cinq étudiants en BUT MMI (Métiers du Multimédia et de l'Internet) dans le cadre d'une Situation d'Apprentissage et d'Évaluation (SAE).
+🔗 **Site en ligne :** [Accéder au site web](https://saeboulangeries.alwaysdata.net/sae303/)  
+📂 **Dépôt GitHub :** [Voir le code source](https://github.com/heycmr/sae303)
 
-L'application a pour but de valoriser le savoir-faire artisanal régional en transformant un jeu de données géographiques brutes en une interface d'exploration interactive. Elle permet aussi d'analyser la répartition et la qualité des boulangeries sur huit départements franciliens.
+---
 
-## Expérience utilisateur et interactions
+Ce projet de visualisation de données a été réalisé par cinq étudiants en deuxième année de BUT MMI (Métiers du Multimédia et de l'Internet) à CY Cergy Paris Université, dans le cadre d'une Situation d'Apprentissage et d'Évaluation (SAE).
 
-L'interface a été pensée pour offrir une lecture claire des données à travers plusieurs points d'entrée :
+L'objectif de cette application est de valoriser le savoir-faire artisanal local en transformant un jeu de données géographiques brutes en une interface interactive. Elle permet de localiser les boulangeries proposant la "Baguette des Franciliens" (farine issue de blés locaux) et d'analyser leur répartition sur le territoire.
 
-* **Exploration géographique :** Une carte dynamique permet de naviguer à travers plus de 90 points d'intérêt. Afin de garantir la lisibilité, un système de regroupement (clustering) rassemble automatiquement les marqueurs selon le niveau de zoom.
-* **Recherche ciblée :** Un moteur de recherche avec autocomplétion permet à l'utilisateur de localiser instantanément les commerces d'une ville spécifique.
-* **Analyse statistique :** Au-delà de la simple localisation, l'application propose une visualisation de la qualité des établissements via un graphique de distribution et des indicateurs chiffrés (compteurs dynamiques).
-* **Système de notation visuel :** Chaque établissement dispose d'une fiche détaillée incluant un code couleur associé à son score de qualité, allant de "Moyenne" à "Excellente".
+## Fonctionnalités principales
 
-## Technologies et outils utilisés
+L'application propose plusieurs outils pour explorer les données :
+
+* **Cartographie interactive :** Une carte dynamique permet de naviguer à travers les huit départements d'Île-de-France. Afin d'assurer la lisibilité des nombreux points d'intérêt, un système de regroupement (clustering) rassemble automatiquement les marqueurs selon le niveau de zoom.
+* **Système de recherche :** Un moteur de recherche interne avec autocomplétion permet à l'utilisateur de localiser rapidement les commerces d'une ville spécifique et de centrer la carte sur les résultats.
+* **Tableau de bord statistique :** L'interface affiche des indicateurs clés (nombre total d'établissements, couverture géographique) ainsi qu'un graphique analysant la distribution des scores des établissements.
+* **Fiches détaillées :** Chaque point sur la carte est interactif et affiche, au clic, les informations essentielles de la boulangerie (nom, adresse, évaluation).
+
+## Outils utilisés
 
 * **Structure et Style :** HTML5 et CSS3. La mise en page exploite Flexbox et Grid pour assurer une compatibilité totale sur mobile, tablette et bureau (Responsive Design).
 * **Langage de programmation :** JavaScript.
 * **Bibliothèques tierces :**
     * **Leaflet & MarkerCluster :** Gestion du fond de carte et agrégation des points.
     * **Chart.js :** Génération des graphiques statistiques interactifs.
+* **Source des données :** Les informations sur les boulangeries proviennent du jeu de données ouvert [Boulangeries qui proposent la baguette des Franciliens](https://www.data.gouv.fr/datasets/boulangeries-qui-proposent-la-baguette-des-franciliens) (data.gouv.fr).
 
 ## Équipe de réalisation
 
