@@ -21,7 +21,7 @@ async function initSite() {
     });
 
     const croissantIcon = new CroissantIcon({
-        iconUrl: 'img/PingIndividuel.png'
+        iconUrl: 'assets/icone/PingIndividuel.png'
     });
 
     
